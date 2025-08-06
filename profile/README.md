@@ -5,3 +5,7 @@ NlckySolutions™ is a small 'organization' comprised of one person (@codeking54
 # Featured Projects:
 
 ### [nPhoneKIT](https://github.com/nlckysolutions/nPhoneKIT) - Open-source toolkit for Samsung, LG, Mediatek, and Android devices.
+
+---
+
+NlckySolutions™ EST. 2025
