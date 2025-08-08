@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NlckySolutions™</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --text: #eaeaea;
+      --accent: #00ffe0;
+      --card: #1a1a1a;
+      --border: #00b3ff;
+    }
+
+
+    body {
+        font-family: 'IBM Plex Mono', monospace;
+        background-color: #02030a;
+        background-image: 
+            repeating-conic-gradient(
+            from 45deg,
+            #030b18 0deg 90deg,
+            #000822 90deg 180deg
+            );
+        background-size: 20px 20px;
+        background-position: 0 0;
+        animation: pixelShift 0.6s steps(2, jump-none) infinite;
+        color: #e0e0e0;
+    }
+
+    @keyframes pixelShift {
+        0%   { background-position: 0 0; }
+        25%  { background-position: 1px 2px; }
+        50%  { background-position: -1px -2px; }
+        75%  { background-position: 2px -1px; }
+        100% { background-position: -2px 1px; }
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header img {
+      width: 100px;
+      image-rendering: pixelated;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      margin: 10px 0 5px;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-size: 1.1em;
+      color: #aaa;
+    }
+
+    nav {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    nav a {
+      color: var(--accent);
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 2em;
+      color: var(--accent);
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+      display: inline-block;
+    }
+
+    .project {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .project:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .project .text {
+      flex: 1 1 300px;
+    }
+
+    .project .text h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .project .text p {
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    /*.project .screenshot {
+      flex: 1 1 300px;
+      background: var(--card);
+      height: 180px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .project .screenshot > * {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }*/
+
+    .project .screenshot {
+        flex: 1 1 300px;
+        background: var(--card);
+        height: 180px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #777;
+        font-size: 0.9em;
+        text-align: center;
+        overflow: hidden; /* 👈 this clips any overflow */
+        position: relative; /* 👈 needed for absolute children if any */
+    }
+
+    .project .screenshot > * {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 👈 THIS crops while filling */
+        display: block;
+    }
+
+    .project .screenshottop {
+        flex: 1 1 300px;
+        background: var(--card);
+        height: 180px;
+        border-radius: 10px;
+        display: flex;
+        align-items: flex-start; /* 👈 STICKS TO TOP */
+        justify-content: center;
+        overflow: hidden; /* 👈 hides overflow/crops */
+        position: relative;
+    }
+
+    .project .screenshottop > * {
+        width: 100%;
+        height: auto;
+        min-height: 100%;        /* 👈 ensures top is always filled */
+        object-fit: cover;       /* 👈 crop to fill */
+        object-position: top;    /* 👈 anchor to top */
+        display: block;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+      padding: 60px 20px 40px;
+    }
+
+    @media (max-width: 768px) {
+      .project {
+        flex-direction: column !important;
+      }
+    }
+  </style>
+  <canvas id="pixelbg"></canvas>
+<script>
+  const canvas = document.getElementById("pixelbg");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  canvas.style.position = "fixed";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.zIndex = "-1";
+  canvas.style.opacity = "0.07"; // subtle vibe
+  canvas.style.pointerEvents = "none";
+  canvas.style.imageRendering = "pixelated";
+  canvas.style.backgroundColor = "#111";
+
+  const gridSize = 80; // 🟦 BIGGER PIXELS
+  const cols = Math.ceil(canvas.width / gridSize);
+  const rows = Math.ceil(canvas.height / gridSize);
+
+  const pattern = [
+    0,1,0,0,0,0,0,0,
+    0,0,1,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,
+    0,0,0,0,1,0,0,0,
+    0,0,0,0,0,1,0,0,
+    0,0,0,0,0,0,1,0,
+    0,0,0,0,0,0,0,1,
+    0,0,0,0,0,0,0,0,
+  ];
+
+  let frame = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const index = (frame + x + y) % pattern.length;
+        const val = pattern[index];
+        ctx.fillStyle = val ? "#0af" : "#111";
+        ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
+      }
+    }
+
+    frame++;
+  }
+
+  setInterval(draw, 1000 / 4); // 👀 slow & vibey
+</script>
+</head>
+<body>
+
+  <!-- LOGO + HEADER -->
+  <header>
+    <img src="logo.svg" alt="NlckySolutions™ Logo" />
+    <h1>NlckySolutions™</h1>
+    <p>Making tools to do stuff</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-title">About</div>
+    <p style="max-width: 700px; margin-top: 20px;">
+        i make tools to do stuff that other tools don't really do
+    </p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-title">Projects</div>
+
+    <div class="project">
+      <div class="text">
+        <h3>nPhoneKIT</h3>
+        <p>Custom Android unlock toolkit with transparency and control. Supports Samsung, LG, and more. Fully open source and free.</p>
+      </div>
+      <div class="screenshottop"><img src="nphonekit-hero.png"></div>
+    </div>
+
+    <!--<div class="project">
+      <div class="text">
+        <h3>ZoomZoom v2</h3>
+        <p>MD5 prefix bruteforcer built for CUDA. 1B+ MD5 hashes / sec on a 3060. Find a custom MD5 hash prefix in minutes. </p>
+      </div>
+      <div class="screenshot"></div>
+    </div>
+
+    <div class="project">
+      <div class="text">
+        <h3>nToolKit OS</h3>
+        <p>A full Linux distro booting into a CLI Python toolbox for modders, exploiters, and curious minds. USB-ready.</p>
+      </div>
+      <div class="screenshot">[Boot Menu Screenshot]</div>
+    </div>>-->
+
+    <!-- 🔥 To add more projects, just copy this block 👇 -->
+    <!--
+    <div class="project">
+      <div class="text">
+        <h3>Project Name</h3>
+        <p>Description of your project.</p>
+      </div>
+      <div class="screenshot">[Preview Image or Screenshot]</div>
+    </div>
+    -->
+
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-title">Contact</div>
+    <p>E-mail: <strong>contact@nlckysolutions.org</strong></p>
+    <p>Bugs/Security: <strong>bugs@nlckysolutions.org</strong></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 NlckySolutions™.
+  </footer>
+</body>
+</html>
