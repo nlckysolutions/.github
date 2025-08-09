@@ -320,7 +320,12 @@
 
   <!-- FOOTER -->
   <footer>
-    &copy; 2025 NlckySolutions™.
+    &copy; <span id="year"></span> NlckySolutions™.
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
   </footer>
 </body>
 </html>
