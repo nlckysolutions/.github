@@ -1,196 +1,563 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NlckySolutions™</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0d0d0d;
-      --text: #eaeaea;
-      --accent: #00ffe0;
-      --card: #1a1a1a;
-      --border: #00b3ff;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NlckySolutions™ — Home</title>
 
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-    body {
-        font-family: 'IBM Plex Mono', monospace;
-        background-color: #02030a;
-        background-image: 
-            repeating-conic-gradient(
-            from 45deg,
-            #030b18 0deg 90deg,
-            #000822 90deg 180deg
-            );
-        background-size: 20px 20px;
-        background-position: 0 0;
-        animation: pixelShift 0.6s steps(2, jump-none) infinite;
-        color: #e0e0e0;
-    }
+<style>
+  :root{
+    --bg:#07080a;
+    --panel:#0f1113;
+    --muted:#9aa0a6;
+    --accent:#00ffe0;
+    --accent-2:#00b3ff;
+    --glass: rgba(255,255,255,0.03);
+    --card-radius:14px;
+    --max-width:1100px;
+  }
 
-    @keyframes pixelShift {
-        0%   { background-position: 0 0; }
-        25%  { background-position: 1px 2px; }
-        50%  { background-position: -1px -2px; }
-        75%  { background-position: 2px -1px; }
-        100% { background-position: -2px 1px; }
-    }
+  /* Basic page */
+  html,body{height:100%}
+  /*body{
+    margin:0;
+    font-family: "IBM Plex Mono", monospace;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(0,120,160,0.04), transparent),
+                radial-gradient(900px 500px at 90% 90%, rgba(0,160,120,0.03), transparent),
+                var(--bg);
+    color: #e6eef1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }*/
 
-    header {
-      text-align: center;
-      padding: 40px 20px 20px;
-    }
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    background-color: #02030a;
+    background-image: 
+        repeating-conic-gradient(
+        from 45deg,
+        #030b18 0deg 90deg,
+        #000822 90deg 180deg
+        );
+    background-size: 20px 20px;
+    background-position: 0 0;
+    animation: pixelShift 0.6s steps(2, jump-none) infinite;
+    color: #e0e0e0;
+  }
 
-    header img {
-      width: 100px;
-      image-rendering: pixelated;
-    }
+  /* Pixel canvas goes behind everything */
+  #pixelbg{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    image-rendering: pixelated;
+    opacity: 0.06;
+    pointer-events:none;
+    background:#111;
+  }
 
-    header h1 {
-      font-size: 2.8em;
-      margin: 10px 0 5px;
-      color: var(--accent);
-      letter-spacing: 1px;
-    }
+  .wrap{
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 28px;
+  }
 
-    header p {
-      font-size: 1.1em;
-      color: #aaa;
-    }
+  header.site-header{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    justify-content:space-between;
+    padding: 14px 0;
+  }
 
-    nav {
-      text-align: center;
-      margin-top: 20px;
-    }
+  .brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
 
-    nav a {
-      color: var(--accent);
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+  /*.logo {
+    width:62px;
+    height:62px;
+    border-radius:10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:#071018;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6), inset 0 -6px rgba(255,255,255,0.02);
+    image-rendering: pixelated;
+    font-size:20px;
+    letter-spacing:1px;
+  }*/
 
-    section {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
+  .logo {
+    width: 62px;
+    height: 62px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: inline-block;
+    background: transparent;
+  }
 
-    .section-title {
-      font-size: 2em;
-      color: var(--accent);
-      margin-bottom: 20px;
-      border-bottom: 2px solid var(--border);
-      display: inline-block;
-    }
+  .logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
 
-    .project {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-      gap: 20px;
-      align-items: center;
-    }
+  .brand h1{
+    margin:0;
+    font-size:18px;
+    color:var(--accent);
+  }
+  .brand p{ margin:0; font-size:12px; color:var(--muted) }
 
-    .project:nth-child(even) {
-      flex-direction: row-reverse;
-    }
+  nav.topnav{
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
 
-    .project .text {
-      flex: 1 1 300px;
-    }
+  nav.topnav a{
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+    padding:8px 10px;
+    border-radius:8px;
+  }
+  nav.topnav a:hover{ background: rgba(0,255,224,0.03) }
 
-    .project .text h3 {
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
+  /* mobile menu */
+  .hamburger{
+    display:none;
+    background:transparent;
+    border:0;
+    color:var(--accent);
+    font-size:20px;
+  }
 
-    .project .text p {
-      color: #ccc;
-      line-height: 1.5;
-    }
+  /* HERO */
+  .hero{
+    display:grid;
+    grid-template-columns: 1fr 360px;
+    gap:28px;
+    align-items:center;
+    margin-top:22px;
+  }
 
-    /*.project .screenshot {
-      flex: 1 1 300px;
-      background: var(--card);
-      height: 180px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #777;
-      font-size: 0.9em;
-      text-align: center;
-    }
+  .hero-card{
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.25));
+    border-radius: var(--card-radius);
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.02);
+  }
 
-    .project .screenshot > * {
-        max-width: 100%;
-        max-height: 100%;
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-    }*/
+  .hero h2{
+    margin:0 0 8px 0;
+    color: var(--accent);
+    font-size:28px;
+    line-height:1.02;
+  }
+  .hero p.lead{ color:var(--muted); margin:8px 0 20px 0; font-size:14px; }
 
-    .project .screenshot {
-        flex: 1 1 300px;
-        background: var(--card);
-        height: 180px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #777;
-        font-size: 0.9em;
-        text-align: center;
-        overflow: hidden; /* 👈 this clips any overflow */
-        position: relative; /* 👈 needed for absolute children if any */
-    }
+  .ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.03);
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.005));
+    color:var(--accent);
+    cursor:pointer;
+    font-weight:700;
+    text-decoration:none;
+  }
+  .btn.ghost{ color:var(--muted); border:1px solid rgba(255,255,255,0.02); }
+  .btn.secondary{ background: linear-gradient(180deg, rgba(0,179,255,0.06), rgba(0,179,255,0.02)); color:#071018 }
 
-    .project .screenshot > * {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* 👈 THIS crops while filling */
-        display: block;
-    }
+  /* right column */
+  .quicklinks{ display:flex; flex-direction:column; gap:12px; }
+  .card-mini{
+    background:var(--panel);
+    border-radius:12px;
+    padding:14px;
+    border: 1px solid rgba(255,255,255,0.02);
+  }
+  .card-mini h4{ margin:0 0 8px 0; color:var(--accent); font-size:14px }
+  .card-mini p{ margin:0; color:var(--muted); font-size:13px }
 
-    .project .screenshottop {
-        flex: 1 1 300px;
-        background: var(--card);
-        height: 180px;
-        border-radius: 10px;
-        display: flex;
-        align-items: flex-start; /* 👈 STICKS TO TOP */
-        justify-content: center;
-        overflow: hidden; /* 👈 hides overflow/crops */
-        position: relative;
-    }
+  /* Projects grid */
+  .projects{
+    margin-top:34px;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:18px;
+  }
+  .project-card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border-radius:12px;
+    padding:14px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    border:1px solid rgba(255,255,255,0.02);
+  }
+  /*.project-thumb{
+    width:96px;height:64px;border-radius:8px;background:#0b0b0b;flex:0 0 96px;display:flex;align-items:center;justify-content:center;color:#777;font-size:12px;
+  }*/
+  .project-thumb{
+    width: 96px;
+    height: 64px;
+    border-radius: 8px;
+    overflow: hidden;           /* important — clips overflow */
+    background: #0b0b0b;
+    display: inline-block;
+    flex: 0 0 96px;
+  }
 
-    .project .screenshottop > * {
-        width: 100%;
-        height: auto;
-        min-height: 100%;        /* 👈 ensures top is always filled */
-        object-fit: cover;       /* 👈 crop to fill */
-        object-position: top;    /* 👈 anchor to top */
-        display: block;
-    }
+  .project-thumb img{
+    display: block;             /* removes inline-gap */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;          /* FILL and crop */
+    object-position: center;    /* can be 'top' / 'center' / 'left' etc */
+  }
 
-    footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #666;
-      padding: 60px 20px 40px;
-    }
+  .project-meta h3{ margin:0; color:var(--accent); font-size:15px }
+  .project-meta p{ margin:6px 0 0 0; color:var(--muted); font-size:13px }
 
-    @media (max-width: 768px) {
-      .project {
-        flex-direction: column !important;
+  /* Papers preview */
+  .papers-row{ margin-top:28px; display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap; }
+  .paper-item{
+    width:220px;
+    background:var(--panel);
+    padding:10px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.02);
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    cursor:pointer;
+  }
+  .paper-thumb{ width:72px; height:96px; background:#0a0a0a; border-radius:6px; display:flex;align-items:center;justify-content:center; color:#777; font-size:12px; overflow:hidden; }
+  .paper-meta h5{ margin:0; color:var(--accent); font-size:13px; }
+  .paper-meta p{ margin:6px 0 0 0; color:var(--muted); font-size:12px; }
+
+  /* viewer modal */
+  .viewer-backdrop{
+    position:fixed; inset:0; background:rgba(2,6,12,0.7); display:none; align-items:center; justify-content:center; z-index:9999; padding:24px;
+  }
+  .viewer{
+    width: min(1100px, 98%);
+    height: 80vh;
+    background: #020203;
+    border-radius:12px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .viewer .topbar{ display:flex; gap:12px; align-items:center; justify-content:space-between; padding:10px 12px; background:rgba(255,255,255,0.01); }
+  .viewer iframe{ width:100%; height:100%; border:0; background: #0a0a0a; }
+
+  /* footer */
+  footer.site-footer{ margin-top:54px; padding:28px 0; color:var(--muted); font-size:13px; text-align:center; }
+
+  /* responsive */
+  @media (max-width:920px){
+    .hero{ grid-template-columns: 1fr; }
+    .projects{ grid-template-columns: 1fr; }
+    .hamburger{ display:inline-block; }
+    nav.topnav{ display:none; }
+  }
+</style>
+</head>
+<body cz-shortcut-listen="true">
+
+<!--<canvas id="pixelbg" width="1600" height="900" aria-hidden="true"></canvas>-->
+<canvas id="pixelbg" width="1799" height="963" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.07; pointer-events: none; image-rendering: pixelated; background-color: rgb(17, 17, 17);"></canvas>
+
+<div class="wrap">
+
+  <header class="site-header">
+    <div class="brand" aria-hidden="false">
+      <div class="logo" role="img"  aria-label="NlckySolutions logo"><img src="https://nlckysolutions.org/logo.png"></div>
+      <div>
+        <h1>NlckySolutions™</h1>
+        <p>tools, hacks, and weirdly useful things</p>
+      </div>
+    </div>
+
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <!--<a href="papers.html">Papers</a>
+      <a href="blog.html">Blog</a>
+      <a href="tools.html">Tools</a>
+      <a href="about.html">About</a>-->
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card" role="region" aria-labelledby="heroTitle">
+        <h2 id="heroTitle" class="animate__animated animate__fadeInDown">Making open source and free tools.</h2>
+        <p class="lead animate__animated animate__fadeInDown">I make stuff. People find that useful of me.</p>
+
+        <div class="ctas" role="group" aria-label="Primary actions">
+          <a class="btn" href="#projects" title="See projects">🚀 Explore projects</a>
+          <!--<a class="btn ghost" href="papers.html" title="Go to papers page">📚 Papers</a>-->
+          <a class="btn ghost" href="https://github.com/nlckysolutions" target="_blank" rel="noopener">GitHub</a>
+        </div>
+
+        <div class="projects" id="projects" aria-live="polite">
+          <div class="project-card">
+            <div class="project-thumb"><img src="https://nlckysolutions.org/nphonekit-hero.png"></div>
+            <div class="project-meta">
+              <h3><a href="https://github.com/nlckysolutions/nPhoneKIT" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">nPhoneKIT</a></h3>
+              <p>Android toolkit — transparent, scriptable, and open. FRP tools + helpers.</p>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-thumb"><img src="https://nlckysolutions.org/ngpt-hero2.png" style="filter: invert(1); -webkit-filter: invert(1);"></div>
+            <div class="project-meta">
+              <h3><a href="https://github.com/nlckysolutions/nGPT" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">nGPT</a></h3>
+              <p>Browser/Flask LLM helper for device control experiments.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <aside class="quicklinks">
+        <div class="card-mini">
+          <h4>Quick Links</h4>
+          <p>Projects · Papers · Blog · Tools · About</p>
+        </div>
+
+        <!--<div class="card-mini">
+          <h4>Latest Papers</h4>
+          <p id="papersSummary">Loading… (if you have `/papers/index.json`, they'll show up here)</p>
+        </div>-->
+
+        <div class="card-mini">
+          <h4>Contact</h4>
+          <p style="color:var(--muted)">bugs@nlckysolutions.org · contact@nlckysolutions.org</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Papers preview area (populated by JS if /papers/index.json exists) -->
+    <!--<section aria-labelledby="papersTitle" style="margin-top:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <h3 id="papersTitle" style="margin:0;color:var(--accent)">Papers — quick preview</h3>
+        <a class="btn ghost" href="papers.html">Open papers page →</a>
+      </div>
+
+      <div class="papers-row" id="papersRow" aria-live="polite" style="min-height:86px;margin-top:12px">
+        !-- JS will populate --
+      </div>
+    </section>-->
+
+  <!-- STAT CARD (paste where you want the card) -->
+<div class="hero-card stat-card" id="nlckyStat" role="region" aria-labelledby="statTitle" tabindex="0">
+  <h3 id="statTitle" class="stat-text">
+    Over <span class="stat-number" data-target="1200">0</span> people use tools built by <span class="stat-brand">NlckySolutions</span>.
+  </h3>
+</div>
+
+<style>
+/* STAT CARD tweaks (keep same vibe as .hero-card) */
+.stat-card{
+  max-width: 420px;           /* small card */
+  padding: 20px;
+  border-radius: var(--card-radius);
+  background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(0,0,0,0.22));
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.02);
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform .55s cubic-bezier(.2,.9,.27,1), opacity .45s ease;
+  will-change: transform, opacity;
+  display:inline-block;
+}
+
+/* visible state triggered by JS */
+.stat-card.visible{
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+/* text sizing - matches hero typography */
+.stat-card .stat-text{
+  margin: 0;
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+/* the animated number */
+.stat-number{
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  margin: 0 6px;
+}
+
+/* brand text style */
+.stat-brand{ color: var(--accent-2); font-weight:700; }
+
+/* optional subtle pulse once the count finishes */
+.stat-card.done{
+  animation: statPulse 1800ms ease 1;
+}
+@keyframes statPulse{
+  0%   { box-shadow: 0 10px 30px rgba(0,0,0,0.6); transform: scale(1); }
+  50%  { box-shadow: 0 20px 48px rgba(0,255,224,0.06); transform: scale(1.02); }
+  100% { box-shadow: 0 10px 30px rgba(0,0,0,0.6); transform: scale(1); }
+}
+
+/* tiny responsive tweak */
+@media (max-width:640px){
+  .stat-card{ max-width: 100%; padding:16px; }
+  .stat-card .stat-text{ font-size:16px; }
+}
+</style>
+
+<script>
+/* Intersection observer + count-up
+   - triggers once when the card *enters* the viewport
+   - counts from 0 to the integer in data-target
+   - final value is forced to the exact target (1200)
+*/
+(function(){
+  const card = document.getElementById('nlckyStat');
+  if(!card) return;
+
+  const numEl = card.querySelector('.stat-number');
+  const target = parseInt(numEl.getAttribute('data-target') || '1200', 10);
+
+  // count-up function (smooth, frame-tied)
+  function countUp(el, to, duration=5000){
+    const start = 0;
+    const diff = to - start;
+    const startTime = performance.now();
+
+    function tick(now){
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutQuad for nicer feeling
+      const eased = 1 - (1 - progress) * (1 - progress);
+      const value = Math.floor(start + diff * eased);
+      el.textContent = value.toLocaleString();
+      if(progress < 1){
+        requestAnimationFrame(tick);
+      } else {
+        // ensure exact final (digit-by-digit correctness)
+        el.textContent = to.toLocaleString();
+        // optional finished state
+        card.classList.add('done');
       }
     }
-  </style>
-  <canvas id="pixelbg"></canvas>
+    requestAnimationFrame(tick);
+  }
+
+  // intersection observer
+  const obs = new IntersectionObserver((entries, observer) => {
+    for(const ent of entries){
+      if(ent.isIntersecting){
+        // show & animate
+        card.classList.add('visible');
+        // small delay to let reveal animate slightly before counting
+        setTimeout(()=> countUp(numEl, target), 120);
+        observer.unobserve(card);
+      }
+    }
+  }, { threshold: 0.35 });
+
+  // start observing
+  obs.observe(card);
+
+  // also trigger if it's already visible on load
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const rect = card.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      card.classList.add('visible');
+      setTimeout(()=> countUp(numEl, target), 120);
+      obs.unobserve(card);
+    }
+  });
+})();
+</script>
+
+
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year"></span> NlckySolutions™ · built free, open, and messy.
+  </footer>
+</div>
+
+<!-- Viewer modal -->
+<div class="viewer-backdrop" id="viewerBack" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="viewer" role="document">
+    <div class="topbar">
+      <div style="display:flex;gap:10px;align-items:center">
+        <strong id="viewerTitle" style="color:var(--accent)"></strong>
+        <span id="viewerInfo" style="color:var(--muted);font-size:13px"></span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <a id="downloadBtn" class="btn ghost" href="#" download><span>⬇️ Download</span></a>
+        <button class="btn" id="closeViewer">Close</button>
+      </div>
+    </div>
+    <iframe id="viewerFrame" title="PDF viewer"></iframe>
+  </div>
+</div>
+
 <script>
+/* Pixel background animation (very light) */
+/*(function pixelBg(){
+  const canvas = document.getElementById('pixelbg');
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const grid = 56;
+  const cols = ()=>Math.ceil(canvas.width / grid);
+  const rows = ()=>Math.ceil(canvas.height / grid);
+  let frame = 0;
+  const palette = ['#071018','#071b2a', '#00293c', '#001622', '#001a2b'];
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let y=0;y<rows();y++){
+      for(let x=0;x<cols();x++){
+        const idx = (x + y + frame) % 8;
+        ctx.fillStyle = (idx === 0) ? palette[(x+y)%palette.length] : palette[0];
+        ctx.fillRect(x*grid, y*grid, grid, grid);
+      }
+    }
+    frame = (frame + 1) % 8;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();*/
+
+
   const canvas = document.getElementById("pixelbg");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
@@ -238,94 +605,91 @@
   }
 
   setInterval(draw, 1000 / 4); // 👀 slow & vibey
-</script>
-</head>
-<body>
 
-  <!-- LOGO + HEADER -->
-  <header>
-    <img src="logo.png" alt="NlckySolutions™ Logo" />
-    <h1>NlckySolutions™</h1>
-    <p>Making tools to do stuff</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-title">About</div>
-    <p style="max-width: 700px; margin-top: 20px;">
-        i make tools to do stuff that other tools don't really do
-    </p>
-  </section>
+/* Mobile menu toggle (very tiny) */
+document.getElementById('menuBtn').addEventListener('click', ()=>{
+  const nav = document.querySelector('nav.topnav');
+  const btn = document.getElementById('menuBtn');
+  if(nav.style.display === 'flex'){ nav.style.display = ''; btn.setAttribute('aria-expanded','false'); }
+  else { nav.style.display = 'flex'; btn.setAttribute('aria-expanded','true'); }
+});
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-title">Projects</div>
+/* Year */
+document.getElementById('year').textContent = new Date().getFullYear();
 
-    <div class="project">
-      <div class="text">
-        <a href="https://github.com/nlckysolutions/nPhoneKIT"><h3>nPhoneKIT</h3></a>
-        <p>Custom Android unlock toolkit with transparency and control. Supports Samsung, LG, and more. Fully open source and free.</p>
-      </div>
-      <div class="screenshottop"><a href="https://github.com/nlckysolutions/nPhoneKIT"><img src="nphonekit-hero.png"></a></div>
-    </div>
+/* Papers preview logic:
+   - Expects a JSON at /papers/index.json with format:
+     [
+       { "title":"Paper 1", "file":"paper1.pdf", "desc":"Short desc", "thumb": "paper1-thumb.png" },
+       ...
+     ]
+   - If no index.json, the area stays empty (or shows a one-line hint).
+*/
+async function loadPapersPreview(){
+  const row = document.getElementById('papersRow');
+  const summary = document.getElementById('papersSummary');
+  try {
+    const res = await fetch('/papers/index.json', {cache:'no-cache'});
+    if(!res.ok) throw new Error('missing index.json');
+    const list = await res.json();
+    if(!Array.isArray(list) || list.length === 0){
+      summary.textContent = 'No papers found in /papers/.';
+      return;
+    }
+    summary.textContent = `Showing ${Math.min(6, list.length)} recent paper(s)`;
+    // show up to 6
+    list.slice(0,6).forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'paper-item';
+      item.tabIndex = 0;
+      item.setAttribute('role','button');
+      item.innerHTML = `
+        <div class="paper-thumb">${p.thumb ? `<img src="/papers/${p.thumb}" alt="${escapeHtml(p.title)}" style="width:100%;height:100%;object-fit:cover">` : '<svg width="46" height="62" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="32" rx="3" fill="#071018"/></svg>'}</div>
+        <div class="paper-meta">
+          <h5>${escapeHtml(p.title)}</h5>
+          <p>${escapeHtml(p.desc||'—')}</p>
+        </div>
+      `;
+      item.addEventListener('click', ()=>openViewer(p));
+      item.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ openViewer(p); }});
+      row.appendChild(item);
+    });
+  } catch(err){
+    summary.textContent = 'No papers index found. Put PDFs in /papers/ and add index.json to enable previews.';
+    console.info('papers preview load:', err);
+  }
+}
+function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
 
-    <div class="project">
-      <div class="text">
-        <a href="https://github.com/nlckysolutions/nGPT"><h3>nGPT</h3></a>
-        <p>Browser-based HTML Flask server with Python and LM Studio to give LLMs more control over the devices around you.</p>
-      </div>
-      <div class="screenshottop"><a href="https://github.com/nlckysolutions/nGPT"><img src="ngpt-hero2.png"></a></div>
-    </div>
+/* Viewer open/close */
+const viewerBack = document.getElementById('viewerBack');
+const viewerFrame = document.getElementById('viewerFrame');
+const viewerTitle = document.getElementById('viewerTitle');
+const viewerInfo = document.getElementById('viewerInfo');
+const downloadBtn = document.getElementById('downloadBtn');
 
-    <!--<div class="project">
-      <div class="text">
-        <h3>ZoomZoom v2</h3>
-        <p>MD5 prefix bruteforcer built for CUDA. 1B+ MD5 hashes / sec on a 3060. Find a custom MD5 hash prefix in minutes. </p>
-      </div>
-      <div class="screenshot"></div>
-    </div>
+function openViewer(p){
+  const fileUrl = p.file.startsWith('http') ? p.file : `/papers/${p.file}`;
+  viewerTitle.textContent = p.title || 'Paper';
+  viewerInfo.textContent = p.desc ? ` — ${p.desc}` : '';
+  viewerFrame.src = fileUrl;
+  downloadBtn.href = fileUrl;
+  downloadBtn.setAttribute('download', p.file.split('/').pop());
+  viewerBack.style.display = 'flex';
+  viewerBack.setAttribute('aria-hidden','false');
+}
+document.getElementById('closeViewer').addEventListener('click', closeViewer);
+viewerBack.addEventListener('click', (e)=>{ if(e.target === viewerBack) closeViewer(); });
+function closeViewer(){
+  viewerFrame.src = 'about:blank';
+  viewerBack.style.display = 'none';
+  viewerBack.setAttribute('aria-hidden','true');
+}
 
-    <div class="project">
-      <div class="text">
-        <h3>nToolKit OS</h3>
-        <p>A full Linux distro booting into a CLI Python toolbox for modders, exploiters, and curious minds. USB-ready.</p>
-      </div>
-      <div class="screenshot">[Boot Menu Screenshot]</div>
-    </div>>-->
-
-    <!-- 🔥 To add more projects, just copy this block 👇 -->
-    <!--
-    <div class="project">
-      <div class="text">
-        <h3>Project Name</h3>
-        <p>Description of your project.</p>
-      </div>
-      <div class="screenshot">[Preview Image or Screenshot]</div>
-    </div>
-    -->
-
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-title">Contact</div>
-    <p>E-mail: <strong>contact@nlckysolutions.org</strong></p>
-    <p>Bugs/Security: <strong>bugs@nlckysolutions.org</strong></p>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    &copy; <span id="year"></span> NlckySolutions™
-
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+/* run it */
+loadPapersPreview();
 </script>
 
-  </footer>
 </body>
 </html>
