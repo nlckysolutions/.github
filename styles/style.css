@@ -270,3 +270,11 @@ footer.site-footer{ margin-top:54px; padding:28px 0; color:var(--muted); font-si
 .hamburger{ display:inline-block; }
 nav.topnav{ display:none; }
 }
+
+.top-crop {
+  width: 100%;
+  height: 300px; /* Or whatever height you need */
+  object-fit: cover;         /* Crop the image to fill the box */
+  object-position: top;      /* Prioritize the top of the image */
+  display: block;
+}
