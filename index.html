@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NlckySolutions™ — Home</title>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<link rel="stylesheet" href="https://nlckysolutions.org/styles/style.css"/>
+
+</head>
+<body cz-shortcut-listen="true">
+
+<!--<canvas id="pixelbg" width="1600" height="900" aria-hidden="true"></canvas>-->
+<canvas id="pixelbg" width="1799" height="963" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.07; pointer-events: none; image-rendering: pixelated; background-color: rgb(17, 17, 17);"></canvas>
+
+<div class="wrap">
+
+  <header class="site-header">
+    <div class="brand" aria-hidden="false">
+      <div class="logo" role="img"  aria-label="NlckySolutions logo"><img src="https://nlckysolutions.org/logo.png"></div>
+      <div>
+        <h1>NlckySolutions™</h1>
+        <p>tools, hacks, and weirdly useful things</p>
+      </div>
+    </div>
+
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="https://nlckysolutions.org">Home</a>
+      <!--<a href="papers.html">Papers</a>-->
+      <a href="https://nlcky.solutions">Blog</a>
+      <!--<a href="tools.html">Tools</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>-->
+    </nav>
+
+    <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card" role="region" aria-labelledby="heroTitle">
+        <h2 id="heroTitle" class="animate__animated animate__fadeInDown">Making open source and free tools.</h2>
+        <!--<p class="lead animate__animated animate__fadeInDown"><!!--I make stuff.--><!-- People find that useful of me.--!!>Since 2025</p>-->
+
+        <div class="ctas" role="group" aria-label="Primary actions">
+          <a class="btn" href="#projects" title="See projects">🚀 Explore projects</a>
+          <!--<a class="btn ghost" href="papers.html" title="Go to papers page">📚 Papers</a>-->
+          <a class="btn ghost" href="https://github.com/nlckysolutions" target="_blank" rel="noopener">GitHub</a>
+        </div>
+
+        <div class="projects" id="projects" aria-live="polite">
+          <div class="project-card">
+            <div class="project-thumb"><img src="https://nlckysolutions.org/nphonekit-hero.png"></div>
+            <div class="project-meta">
+              <h3><a href="https://github.com/nlckysolutions/nPhoneKIT" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">nPhoneKIT</a></h3>
+              <p>Android toolkit — transparent, scriptable, and open. FRP tools + helpers.</p>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-thumb"><!--PrivacyStats--><img src="https://nlckysolutions.org/privacystats-hero2.png" class="top-crop"></div>
+            <div class="project-meta">
+              <h3><a href="https://github.com/nlckysolutions/PrivacyStats" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">PrivacyStats</a></h3>
+              <p>A simple app — get a privacy score for your Android device.</p>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-thumb"><img src="https://nlckysolutions.org/ngpt-hero2.png" style="filter: invert(1); -webkit-filter: invert(1);"></div>
+            <div class="project-meta">
+              <h3><a href="https://github.com/nlckysolutions/nGPT" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">nGPT</a></h3>
+              <p>Browser/Flask LLM helper for device control experiments.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <aside class="quicklinks">
+        <div class="card-mini">
+          <h4>Quick Links</h4>
+          <p>Projects · Papers · Blog · Tools · About</p>
+        </div>
+
+        <!--<div class="card-mini">
+          <h4>Latest Papers</h4>
+          <p id="papersSummary">Loading… (if you have `/papers/index.json`, they'll show up here)</p>
+        </div>-->
+
+        <div class="card-mini">
+          <h4>Contact</h4>
+          <p style="color:var(--muted)">bugs@nlckysolutions.org · contact@nlckysolutions.org</p>
+        </div>
+        <div class="card-mini">
+          <!--<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1TYqBdEiJWm34MxMlhopHH?theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>-->
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1TYqBdEiJWm34MxMlhopHH?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Papers preview area (populated by JS if /papers/index.json exists) -->
+    <!--<section aria-labelledby="papersTitle" style="margin-top:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <h3 id="papersTitle" style="margin:0;color:var(--accent)">Papers — quick preview</h3>
+        <a class="btn ghost" href="papers.html">Open papers page →</a>
+      </div>
+
+      <div class="papers-row" id="papersRow" aria-live="polite" style="min-height:86px;margin-top:12px">
+        !-- JS will populate --
+      </div>
+    </section>-->
+
+  <!-- STAT CARD (paste where you want the card) -->
+<div class="hero-card stat-card" id="nlckyStat" role="region" aria-labelledby="statTitle" tabindex="0">
+  <h3 id="statTitle" class="stat-text">
+    Over <span class="stat-number" data-target="1200">0</span> people use tools built by <span class="stat-brand">NlckySolutions™</span>.
+  </h3>
+</div>
+
+<div class="hero-card stat-card" id="nlckyStat2" role="region" aria-labelledby="statTitle" tabindex="0">
+  <h3 id="statTitle" class="stat-text">
+    Over <span class="stat-number" data-target="300">0</span> phones unlocked for their rightful owners by <span class="stat-brand">nPhoneKIT</span>.
+  </h3>
+</div>
+
+<div class="hero-card stat-card" id="nlckyStat3" role="region" aria-labelledby="statTitle" tabindex="0">
+  <h3 id="statTitle" class="stat-text">
+    Over <span class="stat-number" data-target="25000">0</span> minutes spent coding for <span class="stat-brand">NlckySolutions™</span>.
+  </h3>
+</div>
+
+<div class="hero-card stat-card" id="nlckyStat4" role="region" aria-labelledby="statTitle" tabindex="0">
+  <h3 id="statTitle" class="stat-text">
+    Over <span class="stat-number" data-target="8000">0</span> minutes spent researching for <span class="stat-brand">NlckySolutions™</span>.
+  </h3>
+</div>
+
+<style>
+/* STAT CARD tweaks (keep same vibe as .hero-card) */
+.stat-card{
+  max-width: 420px;           /* small card */
+  padding: 20px;
+  border-radius: var(--card-radius);
+  background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(0,0,0,0.22));
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.02);
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform .55s cubic-bezier(.2,.9,.27,1), opacity .45s ease;
+  will-change: transform, opacity;
+  display:inline-block;
+}
+
+/* visible state triggered by JS */
+.stat-card.visible{
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+/* text sizing - matches hero typography */
+.stat-card .stat-text{
+  margin: 0;
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+/* the animated number */
+.stat-number{
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  margin: 0 6px;
+}
+
+/* brand text style */
+.stat-brand{ color: var(--accent-2); font-weight:700; }
+
+/* optional subtle pulse once the count finishes */
+.stat-card.done{
+  animation: statPulse 1800ms ease 1;
+}
+@keyframes statPulse{
+  0%   { box-shadow: 0 10px 30px rgba(0,0,0,0.6); transform: scale(1); }
+  50%  { box-shadow: 0 20px 48px rgba(0,255,224,0.06); transform: scale(1.02); }
+  100% { box-shadow: 0 10px 30px rgba(0,0,0,0.6); transform: scale(1); }
+}
+
+/* tiny responsive tweak */
+@media (max-width:640px){
+  .stat-card{ max-width: 100%; padding:16px; }
+  .stat-card .stat-text{ font-size:16px; }
+}
+</style>
+
+<script>
+/* Intersection observer + count-up
+   - triggers once when the card *enters* the viewport
+   - counts from 0 to the integer in data-target
+   - final value is forced to the exact target (1200)
+*/
+(function(){
+  const card = document.getElementById('nlckyStat');
+  if(!card) return;
+
+  const numEl = card.querySelector('.stat-number');
+  const target = parseInt(numEl.getAttribute('data-target') || '1200', 10);
+
+  // count-up function (smooth, frame-tied)
+  function countUp(el, to, duration=5000){
+    const start = 0;
+    const diff = to - start;
+    const startTime = performance.now();
+
+    function tick(now){
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutQuad for nicer feeling
+      const eased = 1 - (1 - progress) * (1 - progress);
+      const value = Math.floor(start + diff * eased);
+      el.textContent = value.toLocaleString();
+      if(progress < 1){
+        requestAnimationFrame(tick);
+      } else {
+        // ensure exact final (digit-by-digit correctness)
+        el.textContent = to.toLocaleString();
+        // optional finished state
+        card.classList.add('done');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // intersection observer
+  const obs = new IntersectionObserver((entries, observer) => {
+    for(const ent of entries){
+      if(ent.isIntersecting){
+        // show & animate
+        card.classList.add('visible');
+        // small delay to let reveal animate slightly before counting
+        setTimeout(()=> countUp(numEl, target), 120);
+        observer.unobserve(card);
+      }
+    }
+  }, { threshold: 0.35 });
+
+  // start observing
+  obs.observe(card);
+
+  // also trigger if it's already visible on load
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const rect = card.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      card.classList.add('visible');
+      setTimeout(()=> countUp(numEl, target), 120);
+      obs.unobserve(card);
+    }
+  });
+})();
+</script>
+<script>
+  (function(){
+  const card = document.getElementById('nlckyStat2');
+  if(!card) return;
+
+  const numEl = card.querySelector('.stat-number');
+  const target = parseInt(numEl.getAttribute('data-target') || '1200', 10);
+
+  // count-up function (smooth, frame-tied)
+  function countUp(el, to, duration=5000){
+    const start = 0;
+    const diff = to - start;
+    const startTime = performance.now();
+
+    function tick(now){
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutQuad for nicer feeling
+      const eased = 1 - (1 - progress) * (1 - progress);
+      const value = Math.floor(start + diff * eased);
+      el.textContent = value.toLocaleString();
+      if(progress < 1){
+        requestAnimationFrame(tick);
+      } else {
+        // ensure exact final (digit-by-digit correctness)
+        el.textContent = to.toLocaleString();
+        // optional finished state
+        card.classList.add('done');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // intersection observer
+  const obs = new IntersectionObserver((entries, observer) => {
+    for(const ent of entries){
+      if(ent.isIntersecting){
+        // show & animate
+        card.classList.add('visible');
+        // small delay to let reveal animate slightly before counting
+        setTimeout(()=> countUp(numEl, target), 120);
+        observer.unobserve(card);
+      }
+    }
+  }, { threshold: 0.35 });
+
+  // start observing
+  obs.observe(card);
+
+  // also trigger if it's already visible on load
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const rect = card.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      card.classList.add('visible');
+      setTimeout(()=> countUp(numEl, target), 120);
+      obs.unobserve(card);
+    }
+  });
+})();
+</script>
+<script>
+/* Intersection observer + count-up
+   - triggers once when the card *enters* the viewport
+   - counts from 0 to the integer in data-target
+   - final value is forced to the exact target (1200)
+*/
+(function(){
+  const card = document.getElementById('nlckyStat3');
+  if(!card) return;
+
+  const numEl = card.querySelector('.stat-number');
+  const target = parseInt(numEl.getAttribute('data-target') || '1200', 10);
+
+  // count-up function (smooth, frame-tied)
+  function countUp(el, to, duration=5000){
+    const start = 0;
+    const diff = to - start;
+    const startTime = performance.now();
+
+    function tick(now){
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutQuad for nicer feeling
+      const eased = 1 - (1 - progress) * (1 - progress);
+      const value = Math.floor(start + diff * eased);
+      el.textContent = value.toLocaleString();
+      if(progress < 1){
+        requestAnimationFrame(tick);
+      } else {
+        // ensure exact final (digit-by-digit correctness)
+        el.textContent = to.toLocaleString();
+        // optional finished state
+        card.classList.add('done');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // intersection observer
+  const obs = new IntersectionObserver((entries, observer) => {
+    for(const ent of entries){
+      if(ent.isIntersecting){
+        // show & animate
+        card.classList.add('visible');
+        // small delay to let reveal animate slightly before counting
+        setTimeout(()=> countUp(numEl, target), 120);
+        observer.unobserve(card);
+      }
+    }
+  }, { threshold: 0.35 });
+
+  // start observing
+  obs.observe(card);
+
+  // also trigger if it's already visible on load
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const rect = card.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      card.classList.add('visible');
+      setTimeout(()=> countUp(numEl, target), 120);
+      obs.unobserve(card);
+    }
+  });
+})();
+</script>
+
+<script>
+/* Intersection observer + count-up
+   - triggers once when the card *enters* the viewport
+   - counts from 0 to the integer in data-target
+   - final value is forced to the exact target (1200)
+*/
+(function(){
+  const card = document.getElementById('nlckyStat4');
+  if(!card) return;
+
+  const numEl = card.querySelector('.stat-number');
+  const target = parseInt(numEl.getAttribute('data-target') || '1200', 10);
+
+  // count-up function (smooth, frame-tied)
+  function countUp(el, to, duration=5000){
+    const start = 0;
+    const diff = to - start;
+    const startTime = performance.now();
+
+    function tick(now){
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutQuad for nicer feeling
+      const eased = 1 - (1 - progress) * (1 - progress);
+      const value = Math.floor(start + diff * eased);
+      el.textContent = value.toLocaleString();
+      if(progress < 1){
+        requestAnimationFrame(tick);
+      } else {
+        // ensure exact final (digit-by-digit correctness)
+        el.textContent = to.toLocaleString();
+        // optional finished state
+        card.classList.add('done');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // intersection observer
+  const obs = new IntersectionObserver((entries, observer) => {
+    for(const ent of entries){
+      if(ent.isIntersecting){
+        // show & animate
+        card.classList.add('visible');
+        // small delay to let reveal animate slightly before counting
+        setTimeout(()=> countUp(numEl, target), 120);
+        observer.unobserve(card);
+      }
+    }
+  }, { threshold: 0.35 });
+
+  // start observing
+  obs.observe(card);
+
+  // also trigger if it's already visible on load
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const rect = card.getBoundingClientRect();
+    if(rect.top < window.innerHeight && rect.bottom > 0){
+      card.classList.add('visible');
+      setTimeout(()=> countUp(numEl, target), 120);
+      obs.unobserve(card);
+    }
+  });
+})();
+</script>
+
+
+
+  </main>
+
+  <footer class="site-footer">
+    © <span id="year"></span> NlckySolutions™ · built free & open.
+  </footer>
+</div>
+
+<!-- Viewer modal -->
+<div class="viewer-backdrop" id="viewerBack" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="viewer" role="document">
+    <div class="topbar">
+      <div style="display:flex;gap:10px;align-items:center">
+        <strong id="viewerTitle" style="color:var(--accent)"></strong>
+        <span id="viewerInfo" style="color:var(--muted);font-size:13px"></span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <a id="downloadBtn" class="btn ghost" href="#" download><span>⬇️ Download</span></a>
+        <button class="btn" id="closeViewer">Close</button>
+      </div>
+    </div>
+    <iframe id="viewerFrame" title="PDF viewer"></iframe>
+  </div>
+</div>
+
+<script>
+/* Pixel background animation (very light) */
+/*(function pixelBg(){
+  const canvas = document.getElementById('pixelbg');
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  const grid = 56;
+  const cols = ()=>Math.ceil(canvas.width / grid);
+  const rows = ()=>Math.ceil(canvas.height / grid);
+  let frame = 0;
+  const palette = ['#071018','#071b2a', '#00293c', '#001622', '#001a2b'];
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let y=0;y<rows();y++){
+      for(let x=0;x<cols();x++){
+        const idx = (x + y + frame) % 8;
+        ctx.fillStyle = (idx === 0) ? palette[(x+y)%palette.length] : palette[0];
+        ctx.fillRect(x*grid, y*grid, grid, grid);
+      }
+    }
+    frame = (frame + 1) % 8;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();*/
+
+
+  const canvas = document.getElementById("pixelbg");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  canvas.style.position = "fixed";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.zIndex = "-1";
+  canvas.style.opacity = "0.07"; // subtle vibe
+  canvas.style.pointerEvents = "none";
+  canvas.style.imageRendering = "pixelated";
+  canvas.style.backgroundColor = "#111";
+
+  const gridSize = 80; // 🟦 BIGGER PIXELS
+  const cols = Math.ceil(canvas.width / gridSize);
+  const rows = Math.ceil(canvas.height / gridSize);
+
+  const pattern = [
+    0,1,0,0,0,0,0,0,
+    0,0,1,0,0,0,0,0,
+    0,0,0,1,0,0,0,0,
+    0,0,0,0,1,0,0,0,
+    0,0,0,0,0,1,0,0,
+    0,0,0,0,0,0,1,0,
+    0,0,0,0,0,0,0,1,
+    0,0,0,0,0,0,0,0,
+  ];
+
+  let frame = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const index = (frame + x + y) % pattern.length;
+        const val = pattern[index];
+        ctx.fillStyle = val ? "#0af" : "#111";
+        ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
+      }
+    }
+
+    frame++;
+  }
+
+  setInterval(draw, 1000 / 4); // 👀 slow & vibey
+
+
+/* Mobile menu toggle (very tiny) */
+document.getElementById('menuBtn').addEventListener('click', ()=>{
+  const nav = document.querySelector('nav.topnav');
+  const btn = document.getElementById('menuBtn');
+  if(nav.style.display === 'flex'){ nav.style.display = ''; btn.setAttribute('aria-expanded','false'); }
+  else { nav.style.display = 'flex'; btn.setAttribute('aria-expanded','true'); }
+});
+
+/* Year */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Papers preview logic:
+   - Expects a JSON at /papers/index.json with format:
+     [
+       { "title":"Paper 1", "file":"paper1.pdf", "desc":"Short desc", "thumb": "paper1-thumb.png" },
+       ...
+     ]
+   - If no index.json, the area stays empty (or shows a one-line hint).
+*/
+async function loadPapersPreview(){
+  const row = document.getElementById('papersRow');
+  const summary = document.getElementById('papersSummary');
+  try {
+    const res = await fetch('/papers/index.json', {cache:'no-cache'});
+    if(!res.ok) throw new Error('missing index.json');
+    const list = await res.json();
+    if(!Array.isArray(list) || list.length === 0){
+      summary.textContent = 'No papers found in /papers/.';
+      return;
+    }
+    summary.textContent = `Showing ${Math.min(6, list.length)} recent paper(s)`;
+    // show up to 6
+    list.slice(0,6).forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'paper-item';
+      item.tabIndex = 0;
+      item.setAttribute('role','button');
+      item.innerHTML = `
+        <div class="paper-thumb">${p.thumb ? `<img src="/papers/${p.thumb}" alt="${escapeHtml(p.title)}" style="width:100%;height:100%;object-fit:cover">` : '<svg width="46" height="62" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="32" rx="3" fill="#071018"/></svg>'}</div>
+        <div class="paper-meta">
+          <h5>${escapeHtml(p.title)}</h5>
+          <p>${escapeHtml(p.desc||'—')}</p>
+        </div>
+      `;
+      item.addEventListener('click', ()=>openViewer(p));
+      item.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ openViewer(p); }});
+      row.appendChild(item);
+    });
+  } catch(err){
+    summary.textContent = 'No papers index found. Put PDFs in /papers/ and add index.json to enable previews.';
+    console.info('papers preview load:', err);
+  }
+}
+function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+
+/* Viewer open/close */
+const viewerBack = document.getElementById('viewerBack');
+const viewerFrame = document.getElementById('viewerFrame');
+const viewerTitle = document.getElementById('viewerTitle');
+const viewerInfo = document.getElementById('viewerInfo');
+const downloadBtn = document.getElementById('downloadBtn');
+
+function openViewer(p){
+  const fileUrl = p.file.startsWith('http') ? p.file : `/papers/${p.file}`;
+  viewerTitle.textContent = p.title || 'Paper';
+  viewerInfo.textContent = p.desc ? ` — ${p.desc}` : '';
+  viewerFrame.src = fileUrl;
+  downloadBtn.href = fileUrl;
+  downloadBtn.setAttribute('download', p.file.split('/').pop());
+  viewerBack.style.display = 'flex';
+  viewerBack.setAttribute('aria-hidden','false');
+}
+document.getElementById('closeViewer').addEventListener('click', closeViewer);
+viewerBack.addEventListener('click', (e)=>{ if(e.target === viewerBack) closeViewer(); });
+function closeViewer(){
+  viewerFrame.src = 'about:blank';
+  viewerBack.style.display = 'none';
+  viewerBack.setAttribute('aria-hidden','true');
+}
+
+/* run it */
+loadPapersPreview();
+</script>
+
+</body>
+</html>
