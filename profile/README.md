@@ -6,6 +6,10 @@ NlckySolutions™ is a small 'organization' comprised of one person (@codeking54
 
 ### [nPhoneKIT](https://github.com/nlckysolutions/nPhoneKIT) - Open-source toolkit for Samsung, LG, Mediatek, and Android devices.
 
+### [PrivacyStats](https://github.com/nlckysolutions/PrivacyStats) - Calculate your Android device's privacy score.
+
+### [nGPT](https://github.com/nlckysolutions/nGPT) - Control more devices around you with AI.
+
 ---
 
 NlckySolutions™ EST. 2025
