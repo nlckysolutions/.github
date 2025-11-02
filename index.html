@@ -138,6 +138,32 @@
   </h3>
 </div>
 
+<div class="hero-card">
+  <h2 id="heroTitle">Import the NlckySolutions OpenPGP Key (Linux Only)</h2>
+  <div style="background:#1e1e1e;color:#dcdcdc;padding:16px;border-radius:8px;position:relative;font-family:monospace;font-size:15px;overflow:auto">
+    <pre style="margin:0;white-space:pre-wrap"><code id="pgpImport">curl -s https://nlckysolutions.org/keys/nlckysolutions.asc | gpg --import</code></pre>
+    <button onclick="copyToClipboard('pgpImport')" style="position:absolute;top:12px;right:12px;background:#333;color:#fff;border:none;padding:6px 10px;border-radius:5px;cursor:pointer;font-size:12px;">📋 Copy</button>
+  </div>
+  <h4>Then, you can verify authenticity of code, apps, or other files with:</h3>
+  <div style="background:#1e1e1e;color:#dcdcdc;padding:16px;border-radius:8px;position:relative;font-family:monospace;font-size:15px;overflow:auto">
+    <pre style="margin:0;white-space:pre-wrap"><code id="pgpexec">gpg --verify file.asc</code></pre>
+    <button onclick="copyToClipboard('pgpexec')" style="position:absolute;top:12px;right:12px;background:#333;color:#fff;border:none;padding:6px 10px;border-radius:5px;cursor:pointer;font-size:12px;">📋 Copy</button>
+  </div>
+  <h4>Which should return SIGNATURE GOOD: NlckySolutions - contact@nlckysolutions.org</h3>
+  
+  <script>
+  function copyToClipboard(id) {
+    const el = document.getElementById(id);
+    const text = el.innerText || el.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Copied to clipboard!");
+    }, () => {
+      alert("Copy failed. Try manually.");
+    });
+  }
+  </script>
+</div>
+    
 <style>
 /* STAT CARD tweaks (keep same vibe as .hero-card) */
 .stat-card{
