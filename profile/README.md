@@ -12,4 +12,10 @@ NlckySolutions™ is a small 'organization' comprised of one person (@codeking54
 
 ---
 
+## Smaller Projects:
+
+### [zz5](https://github.com/nlckysolutions/zz5) - MD5 vanity hashing C++ library for CUDA
+
+---
+
 NlckySolutions™ EST. 2025
