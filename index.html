@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <link rel="stylesheet" href="https://nlckysolutions.org/styles/style.css"/>
 
 </head>
@@ -162,6 +162,50 @@
     });
   }
   </script>
+</div>
+
+<div class="hero-card">
+  <h2 id="herotitle">You time travel when you drive in a car.</h2>
+  <p>
+  \[
+  \text{Let } t = \text{Amount time travelled into the future in seconds (versus someone standing still)}
+  \]
+
+  \[
+  \text{Let } V = \text{Average miles-per-hour speed}
+  \]
+
+  \[
+  \text{Let } M = \text{Amount of time spent driving in minutes}
+  \]
+
+  \[
+  \text{Let } c = \text{Speed of light ( 299792458 m/s )}
+  \]
+   
+  \[
+  t = 60M\left(1 - \frac{1}{\sqrt{1 - \left( \frac{0.44704V}{c} \right)^2 }}\right)
+  \]
+  </p>
+
+  <h4>Example:</h4>
+  <p>Road trip for 60 minutes at 60 miles per hour.</p>
+  <p>
+  \[
+  t = 60(60)\left(1 - \frac{1}{\sqrt{1 - \left( \frac{0.44704 \cdot 60}{299792458} \right)^2 }}\right) = 1.44 \times 10^{-11} \text{ seconds}
+  \]
+  </p>
+  <p>Convert seconds to picoseconds</p>
+  <p>
+  \[
+  t_{ps} = t_{s} \times 10^{12}
+  \]
+
+  \[
+  t_{ps} = (1.44 \times 10^{-11}) \times 10^{12} = 14.4 \text{ picoseconds}
+  \]
+  </p>
+  <p>Answer: When travelling at 60mph for 60 minutes, you time travel 14.4 picoseconds into the future.</p>
 </div>
     
 <style>
