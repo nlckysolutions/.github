@@ -1,91 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>POSIX Time Zone 💖</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POSIX TZ String</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.45/moment-timezone-with-data.min.js"></script>
+
   <style>
+    :root {
+      --bg: #fff7fb;
+      --card: #ffffff;
+      --text: #2f1b3a;
+      --muted: #7d5a87;
+      --accent: #d946ef;
+      --accent-2: #8b5cf6;
+      --code-bg: #1f1726;
+      --code-text: #f9a8d4;
+      --border: #f3d7ea;
+      --shadow: 0 18px 45px rgba(139, 92, 246, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: #fdf6ff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffe4f3 0%, transparent 28%),
+        radial-gradient(circle at top right, #ede9fe 0%, transparent 32%),
+        linear-gradient(180deg, #fff7fb 0%, #fdf2f8 100%);
+      color: var(--text);
+      padding: 24px;
     }
 
     .card {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
+      width: min(720px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 28px;
     }
 
     h1 {
-      font-size: 20px;
-      margin-bottom: 20px;
+      margin: 0 0 8px;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      line-height: 1.1;
     }
 
-    .code-box {
-      background: #1e1e2f;
-      color: #c7f9cc;
-      padding: 15px;
-      border-radius: 12px;
-      font-family: monospace;
-      font-size: 16px;
+    .subtitle {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .code-wrap {
       position: relative;
-      word-break: break-all;
+      background: var(--code-bg);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
     }
 
-    button {
-      margin-top: 15px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 10px;
-      background: #a855f7;
-      color: white;
+    pre {
+      margin: 0;
+      padding: 20px 18px 22px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--code-text);
+      font-size: 1rem;
+      line-height: 1.6;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
       cursor: pointer;
-      font-size: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: 0 8px 20px rgba(217, 70, 239, 0.25);
     }
 
-    button:hover {
-      background: #9333ea;
+    .copy-btn:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+
+    .meta {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-item {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: #fffafe;
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .meta-item strong {
+      color: var(--text);
+    }
+
+    .status-ok {
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+    .status-warn {
+      color: #b45309;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
+  <main class="card">
+    <h1>✨ Your POSIX time zone string ✨</h1>
+    <p class="subtitle">
+      This detects your real IANA zone, derives the current rule set from the timezone database,
+      and prints the closest valid POSIX TZ string.
+    </p>
 
-<div class="card">
-  <h1>✨ Your POSIX time zone string ✨</h1>
-  <div class="code-box" id="tz">Loading...</div>
-  <button onclick="copyTZ()">Copy 💖</button>
-</div>
+    <div class="label">Your POSIX time zone string:</div>
 
-<script>
-  function getPOSIXFromIntl() {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    <div class="code-wrap">
+      <button class="copy-btn" id="copyBtn">Copy</button>
+      <pre><code id="tzOutput">Calculating...</code></pre>
+    </div>
 
-    // Simple mapping (you can expand this if you want)
-    const map = {
-      "America/New_York": "EST5EDT,M3.2.0/2,M11.1.0/2",
-      "America/Chicago": "CST6CDT,M3.2.0/2,M11.1.0/2",
-      "America/Denver": "MST7MDT,M3.2.0/2,M11.1.0/2",
-      "America/Los_Angeles": "PST8PDT,M3.2.0/2,M11.1.0/2",
-      "Europe/London": "GMT0BST,M3.5.0/1,M10.5.0/2"
-    };
+    <div class="meta">
+      <div class="meta-item"><strong>IANA zone:</strong> <span id="ianaZone">—</span></div>
+      <div class="meta-item"><strong>Status:</strong> <span id="statusText">—</span></div>
+      <div class="meta-item"><strong>Notes:</strong> <span id="notesText">—</span></div>
+    </div>
+  </main>
 
-    return map[tz] || `Unknown (${tz})`;
-  }
+  <script>
+    function padNumber(n) {
+      return String(n).padStart(2, "0");
+    }
 
-  function copyTZ() {
-    const text = document.getElementById("tz").innerText;
-    navigator.clipboard.writeText(text);
-    alert("Copied! ✨");
-  }
+    function formatPosixOffset(minutesWestOfUTC) {
+      const sign = minutesWestOfUTC < 0 ? "-" : "";
+      const abs = Math.abs(minutesWestOfUTC);
+      const hours = Math.floor(abs / 60);
+      const minutes = abs % 60;
 
-  document.getElementById("tz").innerText = getPOSIXFromIntl();
-</script>
+      if (minutes === 0) {
+        return `${sign}${hours}`;
+      }
+      return `${sign}${hours}:${padNumber(minutes)}`;
+    }
 
+    function nthWeekdayInMonth(date) {
+      const day = date.getDate();
+      return Math.ceil(day / 7);
+    }
+
+    function toPosixRule(utcMillis, offsetBeforeMinutesWest) {
+      const localMillis = utcMillis - (offsetBeforeMinutesWest * 60 * 1000);
+      const d = new Date(localMillis);
+
+      const month = d.getUTCMonth() + 1;
+      const weekday = d.getUTCDay();
+      const week = nthWeekdayInMonth({
+        getDate: () => d.getUTCDate()
+      });
+
+      const hours = d.getUTCHours();
+      const minutes = d.getUTCMinutes();
+      const seconds = d.getUTCSeconds();
+
+      let timePart = "";
+      if (!(hours === 2 && minutes === 0 && seconds === 0)) {
+        timePart = `/${hours}`;
+        if (minutes !== 0 || seconds !== 0) {
+          timePart += `:${padNumber(minutes)}`;
+        }
+        if (seconds !== 0) {
+          if (minutes === 0) {
+            timePart += `:00`;
+          }
+          timePart += `:${padNumber(seconds)}`;
+        }
+      }
+
+      return `M${month}.${week}.${weekday}${timePart}`;
+    }
+
+    function getAbbr(zone, ts) {
+      return zone.abbr(ts).replace(/[+\-]/g, "");
+    }
+
+    function findTransitionsForYear(zone, year) {
+      const start = Date.UTC(year, 0, 1, 0, 0, 0);
+      const end = Date.UTC(year + 1, 0, 1, 0, 0, 0);
+      const step = 6 * 60 * 60 * 1000;
+
+      let prevOffset = zone.utcOffset(start);
+      const transitions = [];
+
+      for (let t = start + step; t <= end; t += step) {
+        const currentOffset = zone.utcOffset(t);
+
+        if (currentOffset !== prevOffset) {
+          let lo = t - step;
+          let hi = t;
+
+          while (hi - lo > 1000) {
+            const mid = Math.floor((lo + hi) / 2);
+            if (zone.utcOffset(mid) === prevOffset) {
+              lo = mid;
+            } else {
+              hi = mid;
+            }
+          }
+
+          const transitionAt = hi;
+          const beforeOffset = zone.utcOffset(transitionAt - 1000);
+          const afterOffset = zone.utcOffset(transitionAt + 1000);
+          const beforeAbbr = getAbbr(zone, transitionAt - 1000);
+          const afterAbbr = getAbbr(zone, transitionAt + 1000);
+
+          transitions.push({
+            at: transitionAt,
+            beforeOffset,
+            afterOffset,
+            beforeAbbr,
+            afterAbbr
+          });
+
+          prevOffset = currentOffset;
+        }
+      }
+
+      return transitions;
+    }
+
+    function getRepresentativeOffsets(zone, year) {
+      const janTs = Date.UTC(year, 0, 15, 12, 0, 0);
+      const julTs = Date.UTC(year, 6, 15, 12, 0, 0);
+
+      return {
+        janOffset: zone.utcOffset(janTs),
+        julOffset: zone.utcOffset(julTs),
+        janAbbr: getAbbr(zone, janTs),
+        julAbbr: getAbbr(zone, julTs)
+      };
+    }
+
+    function buildPosixFromZone(zoneName) {
+      const zone = moment.tz.zone(zoneName);
+      if (!zone) {
+        throw new Error("Timezone database could not find your zone.");
+      }
+
+      const nowYear = new Date().getFullYear();
+      const transitions = findTransitionsForYear(zone, nowYear);
+      const rep = getRepresentativeOffsets(zone, nowYear);
+
+      if (transitions.length === 0) {
+        const offset = rep.janOffset;
+        const abbr = rep.janAbbr || "UTC";
+        return {
+          posix: `${abbr}${formatPosixOffset(offset)}`,
+          status: "Exact",
+          notes: "This zone has no DST transition in the current ruleset.",
+        };
+      }
+
+      if (transitions.length !== 2) {
+        return {
+          posix: "This timezone cannot be represented perfectly by one POSIX string.",
+          status: "Not representable cleanly",
+          notes: `This zone has ${transitions.length} transitions this year. A single POSIX TZ string only cleanly fits simple annual standard/DST patterns.`,
+        };
+      }
+
+      const [t1, t2] = transitions;
+
+      let dstStart, dstEnd, stdAbbr, dstAbbr, stdOffset;
+
+      const t1AddsDST = t1.afterOffset < t1.beforeOffset;
+      const t2AddsDST = t2.afterOffset < t2.beforeOffset;
+
+      if (t1AddsDST && !t2AddsDST) {
+        dstStart = t1;
+        dstEnd = t2;
+        stdAbbr = t1.beforeAbbr;
+        dstAbbr = t1.afterAbbr;
+        stdOffset = t1.beforeOffset;
+      } else if (!t1AddsDST && t2AddsDST) {
+        dstStart = t2;
+        dstEnd = t1;
+        stdAbbr = t2.beforeAbbr;
+        dstAbbr = t2.afterAbbr;
+        stdOffset = t2.beforeOffset;
+      } else {
+        return {
+          posix: "This timezone cannot be represented perfectly by one POSIX string.",
+          status: "Ambiguous rule pattern",
+          notes: "The transition pattern this year is not a normal single DST-on / DST-off pair.",
+        };
+      }
+
+      const startRule = toPosixRule(dstStart.at, dstStart.beforeOffset);
+      const endRule = toPosixRule(dstEnd.at, dstEnd.beforeOffset);
+
+      return {
+        posix: `${stdAbbr}${formatPosixOffset(stdOffset)}${dstAbbr},${startRule},${endRule}`,
+        status: "Exact for current recurring rule set",
+        notes: "This is exact for normal modern yearly rules. Historical one-off rule changes are outside what one POSIX string can express.",
+      };
+    }
+
+    function setText(id, value) {
+      document.getElementById(id).textContent = value;
+    }
+
+    async function copyOutput() {
+      const text = document.getElementById("tzOutput").textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        const btn = document.getElementById("copyBtn");
+        const old = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => {
+          btn.textContent = old;
+        }, 1400);
+      } catch {
+        alert("Couldn’t copy automatically, but you can still select the text and copy it.");
+      }
+    }
+
+    function init() {
+      const zoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      setText("ianaZone", zoneName || "Unknown");
+
+      try {
+        const result = buildPosixFromZone(zoneName);
+        setText("tzOutput", result.posix);
+        setText("statusText", result.status);
+        setText("notesText", result.notes);
+
+        const statusEl = document.getElementById("statusText");
+        statusEl.className = result.status.startsWith("Exact") ? "status-ok" : "status-warn";
+      } catch (err) {
+        setText("tzOutput", "Could not determine your POSIX TZ string.");
+        setText("statusText", "Error");
+        setText("notesText", err.message || "Unknown error.");
+        document.getElementById("statusText").className = "status-warn";
+      }
+
+      document.getElementById("copyBtn").addEventListener("click", copyOutput);
+    }
+
+    init();
+  </script>
 </body>
 </html>
