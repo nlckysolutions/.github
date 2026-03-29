@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>POSIX Time Zone 💖</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #fdf6ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .code-box {
+      background: #1e1e2f;
+      color: #c7f9cc;
+      padding: 15px;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 16px;
+      position: relative;
+      word-break: break-all;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      background: #a855f7;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #9333ea;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>✨ Your POSIX time zone string ✨</h1>
+  <div class="code-box" id="tz">Loading...</div>
+  <button onclick="copyTZ()">Copy 💖</button>
+</div>
+
+<script>
+  function getPOSIXFromIntl() {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // Simple mapping (you can expand this if you want)
+    const map = {
+      "America/New_York": "EST5EDT,M3.2.0/2,M11.1.0/2",
+      "America/Chicago": "CST6CDT,M3.2.0/2,M11.1.0/2",
+      "America/Denver": "MST7MDT,M3.2.0/2,M11.1.0/2",
+      "America/Los_Angeles": "PST8PDT,M3.2.0/2,M11.1.0/2",
+      "Europe/London": "GMT0BST,M3.5.0/1,M10.5.0/2"
+    };
+
+    return map[tz] || `Unknown (${tz})`;
+  }
+
+  function copyTZ() {
+    const text = document.getElementById("tz").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied! ✨");
+  }
+
+  document.getElementById("tz").innerText = getPOSIXFromIntl();
+</script>
+
+</body>
+</html>
