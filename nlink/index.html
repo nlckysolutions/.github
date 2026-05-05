@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+<title>nLink | NlckySolutions</title>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --accent:#00ffe0;
+  --accent2:#7c5cff;
+  --bg:#000;
+  --card:#0b0f14ee;
+  --muted:#8d97a5;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#000;
+  color:white;
+  font-family:"IBM Plex Mono", monospace;
+  overflow-x:hidden;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:.07;
+  image-rendering:pixelated;
+}
+
+.wrap{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.brand img{
+  width:55px;
+}
+
+.brand h1{
+  margin:0;
+  color:var(--accent);
+  font-size:20px;
+}
+
+.brand p{
+  margin:2px 0 0;
+  font-size:12px;
+  color:var(--muted);
+}
+
+nav{
+  display:flex;
+  gap:20px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+}
+
+nav a:hover{
+  color:var(--accent);
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:25px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid rgba(0,255,224,.08);
+  border-radius:22px;
+  padding:35px;
+  backdrop-filter:blur(8px);
+}
+
+.badge{
+  display:inline-block;
+  color:var(--accent);
+  border:1px solid rgba(0,255,224,.25);
+  padding:8px 14px;
+  border-radius:999px;
+  margin-bottom:20px;
+  font-size:13px;
+}
+
+.hero h2{
+  font-size:72px;
+  margin:0 0 20px;
+  line-height:.9;
+}
+
+.hero p{
+  color:#d6dbe1;
+  line-height:1.7;
+}
+
+.highlight{
+  color:var(--accent);
+  font-weight:700;
+}
+
+.btns{
+  display:flex;
+  gap:12px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-block;
+  padding:14px 22px;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:700;
+  transition:.2s ease;
+}
+
+.btn-main{
+  background:var(--accent);
+  color:black;
+}
+
+.btn-main:hover{
+  transform:translateY(-2px);
+}
+
+.btn-alt{
+  background:#111;
+  color:white;
+  border:1px solid #222;
+}
+
+.info-box{
+  margin-bottom:20px;
+}
+
+.info-box h3{
+  margin-top:0;
+  color:var(--accent);
+}
+
+.info-box p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-top:25px;
+}
+
+.feature{
+  background:var(--card);
+  border-radius:18px;
+  padding:25px;
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.feature h3{
+  margin-top:0;
+  color:var(--accent);
+}
+
+.feature p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.how{
+  margin-top:25px;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-top:20px;
+}
+
+.step{
+  background:var(--card);
+  border-radius:18px;
+  padding:22px;
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.step strong{
+  color:var(--accent);
+}
+
+footer{
+  text-align:center;
+  color:var(--muted);
+  margin:50px 0 20px;
+}
+
+@media(max-width:900px){
+
+  .hero,
+  .features,
+  .steps{
+    grid-template-columns:1fr;
+  }
+
+  .hero h2{
+    font-size:50px;
+  }
+
+  header{
+    flex-direction:column;
+    gap:20px;
+    align-items:flex-start;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="pixelbg"></canvas>
+
+<div class="wrap">
+
+<header>
+
+  <div class="brand">
+    <img src="https://nlckysolutions.org/logo.png">
+    <div>
+      <h1>NlckySolutions™</h1>
+      <p>tools, hacks, and weirdly useful things</p>
+    </div>
+  </div>
+
+  <nav>
+    <a href="https://nlckysolutions.org">Home</a>
+    <a href="https://github.com/nlckysolutions" target="_blank">GitHub</a>
+  </nav>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="card">
+
+    <div class="badge">
+      📡 Experimental NYC Network
+    </div>
+
+    <h2>nLink</h2>
+
+    <p>
+      A new experimental <span class="highlight">LoRa-to-internet network</span>
+      built in NYC.
+    </p>
+
+    <p>
+      Devices like the <span class="highlight">L1 Pro</span>,
+      <span class="highlight">Heltec v4</span>,
+      and compatible LoRa hardware can access:
+    </p>
+
+    <p>
+      🌦 Realtime weather<br>
+      📰 News updates<br>
+      ⚠ Alerts<br>
+      🛠 Utility data<br>
+      📍 More internet-connected tools
+    </p>
+
+    <p>
+      No Wi-Fi. No cellular. Just low-power radio + nLink.
+    </p>
+
+    <p class="highlight">
+      FREE beta testing now open in NYC.
+    </p>
+
+    <div class="btns">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdt-t78PZZq_INx5RI3PCeAZHp8P3I8UazrXakF04Bmg6uG0A/viewform"
+         target="_blank"
+         class="btn btn-main">
+         BETA REGISTRATION →
+      </a>
+
+      <a href="#how"
+         class="btn btn-alt">
+         How It Works
+      </a>
+    </div>
+
+  </div>
+
+
+  <div>
+
+    <div class="card info-box">
+      <h3>🗽 NYC Beta</h3>
+      <p>
+        Initial network rollout is happening in New York City.
+      </p>
+    </div>
+
+    <div class="card info-box">
+      <h3>🔋 Low Power</h3>
+      <p>
+        Designed for battery-friendly LoRa devices.
+      </p>
+    </div>
+
+    <div class="card info-box">
+      <h3>🆓 Free Testing</h3>
+      <p>
+        Beta access costs nothing right now.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="features">
+
+  <div class="feature">
+    <h3>🌦 Weather</h3>
+    <p>
+      Pull real-time weather conditions over LoRa.
+    </p>
+  </div>
+
+  <div class="feature">
+    <h3>📰 News</h3>
+    <p>
+      Receive lightweight internet-fed updates.
+    </p>
+  </div>
+
+  <div class="feature">
+    <h3>🛠 Open Hardware</h3>
+    <p>
+      Built for hackers, makers, and weird projects.
+    </p>
+  </div>
+
+</section>
+
+
+<section class="how" id="how">
+
+  <div class="card">
+
+    <h2 style="font-size:38px;">How nLink Works</h2>
+
+    <div class="steps">
+
+      <div class="step">
+        <strong>01</strong>
+        <p>Use an L1 Pro or Heltec v4.</p>
+      </div>
+
+      <div class="step">
+        <strong>02</strong>
+        <p>Send LoRa request packet.</p>
+      </div>
+
+      <div class="step">
+        <strong>03</strong>
+        <p>nLink hits the internet.</p>
+      </div>
+
+      <div class="step">
+        <strong>04</strong>
+        <p>Receive your data back.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+  © <span id="year"></span> NlckySolutions™ · nLink beta is free
+</footer>
+
+</div>
+
+
+<script>
+document.getElementById("year").textContent =
+new Date().getFullYear();
+
+const canvas =
+document.getElementById("pixelbg");
+
+const ctx =
+canvas.getContext("2d");
+
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+
+resize();
+
+window.addEventListener("resize", resize);
+
+let frame = 0;
+const size = 80;
+
+function draw(){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  const cols =
+    Math.ceil(canvas.width / size);
+
+  const rows =
+    Math.ceil(canvas.height / size);
+
+  for(let y=0; y<rows; y++){
+
+    for(let x=0; x<cols; x++){
+
+      const on =
+        ((x+y+frame)%9)==0;
+
+      ctx.fillStyle =
+        on ? "#00ffe0" : "#111";
+
+      ctx.fillRect(
+        x*size,
+        y*size,
+        size,
+        size
+      );
+
+    }
+
+  }
+
+  frame++;
+
+}
+
+setInterval(draw, 250);
+</script>
+
+</body>
+</html>
