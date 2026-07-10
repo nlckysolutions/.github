@@ -1,6 +1,6 @@
 # About:
 This is **NlckySolutions™**.
-NlckySolutions™ is a small 'organization' comprised of one person (@codeking547) who makes small projects, mostly related to phones or cybersecurity.
+NlckySolutions™ is a small organization which makes small projects, mostly related to phones, cybersecurity, or utilities.
 
 ---
 
